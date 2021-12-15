@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Scene It</title>
+    
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 header text-center">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 search">
+          <form id="search-form">
+            <div class="input-group input-group-lg">
+              <input
+                class="form-control search-bar input info"
+              />
+              <button class="btn btn-primary input-group-btn" type="submit">
+                Search
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script>
+        const button = document.querySelector("button");
+        const div = document.querySelector("text");
+        const input = document.querySelector(".input");
+        const posters = document.querySelector(".posters");
+        const images = document.querySelector(".images");
+
+    button.addEventListener("click", (event) => {
+        event.preventDefault();
+        let searchString = document.querySelector(".input").value;
+        let urlEncodedSearchString = encodeURIComponent(searchString);
+        console.log(urlEncodedSearchString);
+        getHouseInfo();
+        async function getHouseInfo() {
+            const response = await fetch(
+                `https://www.anapioficeandfire.com/api/characters?name=${urlEncodedSearchString}`
+                //`https://www.anapioficeandfire.com/api/characters?name=Jon+Snow`
+        );
+        const result = await response.json().then((data) => {
+            console.log(data[0].gender);
+
+            //info.innerHtml = data[0].gender;
+        });
+        }
+    });
+    </script>
+  </body>
+</html>
